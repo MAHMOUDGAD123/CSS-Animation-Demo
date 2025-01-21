@@ -1,0 +1,216 @@
+@layer framie {
+  html {
+    scroll-behavior: smooth;
+    font-size: 25px;
+    font-family: monospace, sans-serif;
+  }
+
+  body {
+    background-color: #222;
+    padding: 10px;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    scrollbar-width: none; /* remove the scrollbar from all */
+  }
+
+  img,
+  picture,
+  video {
+    max-width: 100%;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* wrappers Start */
+  .wrapper,
+  .wrapper-data-title {
+    --main-col: #8abaf5;
+    --main-bg-col: #000;
+    border: 3px solid var(--main-col);
+    background-color: var(--main-bg-col);
+    padding: 15px;
+    margin-top: 30px;
+    border-radius: 20px;
+    position: relative;
+  }
+  .wrapper-data-title::before {
+    content: attr(data-title);
+    position: absolute;
+    background-color: var(--main-col);
+    border-radius: 20px;
+    padding: 5px;
+    white-space: nowrap;
+    top: -16px;
+    left: 10px;
+  }
+  /* wrappers End */
+
+  :is(.chkbox-wrapper, .radio-box) {
+    --chk-bg-color: #ddd;
+    --chk-color: #4955f7;
+    --transition: 200ms;
+    display: flex;
+    gap: 10px;
+
+    & > label {
+      white-space: nowrap;
+    }
+
+    & > input:is([type="checkbox"], [type="radio"]) {
+      appearance: none;
+      background-color: var(--chk-bg-color);
+      width: 1rem;
+      aspect-ratio: 1;
+      margin: 0;
+      padding: 0;
+      transition: var(--transition);
+      outline: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        outline: 3px solid var(--chk-color);
+        background-color: var(--chk-bg-color);
+      }
+
+      &::before {
+        content: "";
+        background-color: var(--chk-color);
+        transform: scale(0);
+        transition: transform var(--transition) ease-in-out;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+      }
+    }
+
+    /* checkbox */
+    & > input[type="checkbox"] {
+      border-radius: 7px;
+
+      &::before {
+        width: 90%;
+        aspect-ratio: 1;
+        border-radius: 0.5em;
+        border-radius: inherit;
+      }
+
+      &:checked::before {
+        transform: scale(1);
+      }
+    }
+
+    /* radio */
+    & > input[type="radio"] {
+      border-radius: 50%;
+
+      &::before {
+        width: 50%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: var(--chk-bg-color);
+      }
+
+      &:checked {
+        background-color: var(--chk-color);
+
+        &::before {
+          background-color: var(--chk-bg-color);
+          transform: scale(0.6);
+        }
+      }
+    }
+  }
+
+  .area-controls {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    top: -23px;
+    right: 20px;
+    font-size: 15px;
+
+    /* reset buttons */
+    & > button.reset {
+      background-color: var(--main-col);
+      width: 30px;
+      aspect-ratio: 1;
+      border-radius: 100px;
+      position: relative;
+
+      &::before {
+        content: "↻";
+        font-size: 17px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+      }
+
+      &:active {
+        color: red;
+        background-color: yellow;
+      }
+    }
+
+    /* animation controls */
+    & .animation-control.chkbox-wrapper {
+      background-color: var(--main-col);
+      padding: 10px 17px;
+      border-radius: 20% / 70%;
+
+      & > input[type="checkbox"] {
+        width: 20px;
+      }
+
+      & > :is(#playState, #iterationPause, #alternate) {
+        border-radius: 50%;
+      }
+
+      & > :is(#playState, #iterationPause) {
+        &::before {
+          border-radius: inherit;
+          background-color: #47c900;
+        }
+      }
+
+      & > #alternate {
+        &::before {
+          border-radius: inherit;
+          background-color: #b500c9;
+        }
+      }
+    }
+  }
+}
