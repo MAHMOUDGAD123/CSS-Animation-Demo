@@ -12,18 +12,6 @@
     border-radius: 10px;
   }
 
-  .test-area {
-    --main-col: #eb9d00;
-
-    &
-      > .settings
-      > .area-controls
-      > .animation-control
-      > #iterationPause::before {
-      background-color: red;
-    }
-  }
-
   .race-area {
     width: 100%;
     display: flex;
